@@ -5,6 +5,7 @@
 #include "IButton.h"
 #include "keys/KeyRw19901.h"
 #include "keys/KeyRw19902.h"
+#include "keys/KeyTm01A.h"
 
 IButton::IButton(uint8_t pin) :
     oneWire(pin) {
@@ -33,6 +34,10 @@ bool IButton::write(RomCode &data) {
 
     if (KeyRw19902::isRecognized(oneWire)) {
         return KeyRw19902::write(data, oneWire);
+    }
+
+    if (KeyTm01A::isRecognized(oneWire)) { // Always TRUE, trying to write as TM-01x (will be fixed if solution to recognize TM-01A be found)
+        return KeyTm01A::write(data, oneWire);
     }
 
     return false;
