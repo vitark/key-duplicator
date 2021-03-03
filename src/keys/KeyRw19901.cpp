@@ -9,7 +9,7 @@
 bool KeyRw19901::isRecognized(OneWire &oneWire) {
     oneWire.reset();
     oneWire.write(0xD1);    // trying to enable write bit RW-1990.1
-    oneWire.write_bit(0);   // enable write (0 - enable, 1 - disable)
+    oneWire.write_bit(1);   // enable write (1 - enable, 0 - disable)
     delay(10);
 
     oneWire.reset();
@@ -18,7 +18,7 @@ bool KeyRw19901::isRecognized(OneWire &oneWire) {
     if (oneWire.read() == 0xFE){
         oneWire.reset();
         oneWire.write(0xD1);  // disable write
-        oneWire.write_bit(1); // set bit to disable writing
+        oneWire.write_bit(0); // set bit to disable writing
         return true;
     }
 
